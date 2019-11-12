@@ -1,0 +1,102 @@
+#include <ESP32Servo.h>;
+
+int s1 = 15;
+int s2 = 2;
+int s3 = 0;
+int s4 = 4;
+const int x = 14;
+const int y = 13;
+int x_durum;
+int y_durum;
+
+// pushbutton pin
+const int buttonPin = 22;
+
+// servo pin
+const int servoPin = 18;
+Servo servo;
+
+void setup()
+{
+  Serial.begin(9600);
+  servo.attach(servoPin);
+  pinMode(buttonPin, INPUT_PULLUP);
+  pinMode(s1, OUTPUT);
+  pinMode(s2, OUTPUT);
+  pinMode(s3, OUTPUT);
+  pinMode(s4, OUTPUT);
+}
+
+void loop()
+{
+ // local variable to hold the pushbutton states
+  int buttonState;  
+
+  //read the digital state of buttonPin with digitalRead() function and store the           //value in buttonState variable
+  buttonState = digitalRead(buttonPin);
+
+  Serial.println(String(buttonState));
+  //if the button is pressed increment counter and wait a tiny bit to give us some          //time to release the button
+  if (buttonState == 1) // light the LED
+  {
+    delay(150);
+    servo.write(0);
+  }
+  else {
+    servo.write(180);
+  }
+
+  x_durum = analogRead(x);
+  y_durum = analogRead(y);
+
+  Serial.println(y_durum);
+  
+  if (y_durum < 2750) {
+    digitalWrite(s1, HIGH);
+    digitalWrite(s2, LOW);
+    digitalWrite(s3, LOW);
+    digitalWrite(s4, LOW);
+    delay(3);
+    digitalWrite(s1, LOW);
+    digitalWrite(s2, HIGH);
+    digitalWrite(s3, LOW);
+    digitalWrite(s4, LOW);
+    delay(3);
+    digitalWrite(s1, LOW);
+    digitalWrite(s2, LOW);
+    digitalWrite(s3, HIGH);
+    digitalWrite(s4, LOW);
+    delay(3);
+    digitalWrite(s1, LOW);
+    digitalWrite(s2, LOW);
+    digitalWrite(s3, LOW);
+    digitalWrite(s4, HIGH);  
+  }
+  else if (y_durum > 2900) {
+    digitalWrite(s4, HIGH);
+    digitalWrite(s3, LOW);
+    digitalWrite(s2, LOW);
+    digitalWrite(s1, LOW);
+    delay(3);
+    digitalWrite(s4, LOW);
+    digitalWrite(s3, HIGH);
+    digitalWrite(s2, LOW);
+    digitalWrite(s1, LOW);
+    delay(3);
+    digitalWrite(s4, LOW);
+    digitalWrite(s3, LOW);
+    digitalWrite(s2, HIGH);
+    digitalWrite(s1, LOW);
+    delay(3);
+    digitalWrite(s4, LOW);
+    digitalWrite(s3, LOW);
+    digitalWrite(s2, LOW);
+    digitalWrite(s1, HIGH);  
+  }
+  else if (y_durum > 2750 && y_durum < 2900) {
+    digitalWrite(s4, LOW);
+    digitalWrite(s3, LOW);
+    digitalWrite(s2, LOW);
+    digitalWrite(s1, LOW);
+  }
+}
