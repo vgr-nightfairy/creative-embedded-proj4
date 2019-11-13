@@ -33,7 +33,7 @@ In order to use this product, the user can engage in two ways: the joystick and 
 y-axis, as it aims to move the claw up or down. The button designates whether the claw is open or closed. If the button is pressed,
 the claw closes around the object. If the button is not pressed, the claw is open to grab things. 
 
-## Reproducability
+## Reproducibility
 
 The main difficulty encountered in this project that may pose a challenge to future creators was figuring out the mechanical 
 designs for the two main systems: the pulley system in the fishing rod and the gripper system in the claw. In order to create
